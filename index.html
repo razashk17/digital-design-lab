@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A standalone 8085 Microprocessor Lab program library and interactive quiz.">
+  <title>8085 Microprocessor Lab</title>
+  <style>
+    :root{font-family:Arial,Helvetica,sans-serif;color:#172a3a;background:#f3f6f8;font-synthesis:none;text-rendering:optimizeLegibility;--navy:#173753;--deep:#102b43;--cyan:#77dce0;--teal:#168b9a;--muted:#71808b;--line:#dce4e9;--paper:#fff;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+    *{box-sizing:border-box}html{min-width:320px;scroll-behavior:smooth}body{min-width:320px;margin:0}button,input{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #31b5c4;outline-offset:3px}[hidden]{display:none!important}
+    .shell{width:min(1120px,calc(100% - 40px));margin:auto}.topbar{background:#fff;border-bottom:1px solid #e6ecef}.topbar-inner{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:11px;color:#172a3a;text-decoration:none;font-weight:700;font-size:15px}.brandmark{width:37px;height:37px;display:grid;place-items:center;border-radius:11px;background:var(--navy);color:var(--cyan);font-size:22px}.brand small{display:block;margin-top:4px;color:#7b8992;font:9px var(--mono);letter-spacing:.12em}.nav{display:flex;gap:7px}.nav a{padding:10px 13px;border-radius:8px;color:#657580;text-decoration:none;font-size:13px;font-weight:700}.nav a:hover,.nav a.active{color:#1c6470;background:#e9f6f7}
+    .hero{position:relative;overflow:hidden;min-height:340px;display:flex;align-items:center;color:#fff;background:var(--navy);border-radius:0 0 19px 19px}.hero:after{content:"8085";position:absolute;right:7%;top:50%;width:270px;height:270px;display:grid;place-items:center;border:1px solid #ffffff30;border-radius:50%;color:#9ac8d366;font:14px var(--mono);letter-spacing:.2em;box-shadow:0 0 0 40px #ffffff08,0 0 0 85px #ffffff06;transform:translateY(-50%)}.hero-content{position:relative;z-index:1;width:min(1120px,calc(100% - 40px));margin:auto;padding:50px 0}.eyebrow{color:#7fe0e3;font:10px var(--mono);letter-spacing:.16em}.hero h1{max-width:690px;margin:18px 0 13px;font-size:clamp(36px,5.5vw,56px);line-height:1.08;letter-spacing:-.045em}.hero p{max-width:600px;margin:0;color:#c4d4de;font-size:14px;line-height:1.75}.hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:26px;color:#bdcbd5;font:10px var(--mono)}.hero-meta strong{margin-right:6px;color:#7fe0e3;font-size:16px}
+    .main{min-height:360px;padding:35px 0 54px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:17px}.section-head h2{margin:6px 0 0;font-size:24px;letter-spacing:-.025em}.dark-eyebrow{color:#278793}.search{width:min(310px,100%);height:44px;padding:0 13px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#243b4b}.search::placeholder{color:#8d9aa3}.cards{display:grid;gap:12px}.card,.quiz-card,.side,.results{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--paper);box-shadow:0 4px 15px #1a324508}.card{animation:appear .25s both;transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-1px);box-shadow:0 8px 20px #1a324510}.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding:19px 20px 8px}.card-title{display:flex;gap:12px}.index{flex:none;width:33px;height:33px;display:grid;place-items:center;border-radius:9px;color:#287d88;background:#eaf6f7;font:11px var(--mono)}.card h3{margin:1px 0 5px;font-size:15px}.card p{margin:0;color:#73818b;font-size:12px;line-height:1.55}.badge{flex:none;padding:5px 9px;border-radius:99px;background:#f0f4f6;color:#667681;font:10px var(--mono)}.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 19px 15px 65px}.btn{min-height:40px;padding:0 14px;border:1px solid #d6e0e5;border-radius:8px;background:#fff;color:#425866;font-size:12px;font-weight:700;cursor:pointer;transition:background .16s,transform .16s,border-color .16s}.btn:hover:not(:disabled){transform:translateY(-1px);border-color:#9db7c3}.primary{border-color:var(--navy);background:var(--navy);color:#fff}.primary:hover:not(:disabled){background:#204d70}.cyan{border-color:#b5e2e5;background:#def5f5;color:#155d68}.quiet{background:#fff;color:#5e707b}.disclose{border:0;background:transparent;color:#647580;font-size:12px;font-weight:700;cursor:pointer}.detail{padding:19px 20px 20px;border-top:1px solid #e9eef0;background:#fcfdfd}.columns{display:grid;grid-template-columns:minmax(250px,.9fr) minmax(300px,1.1fr);gap:19px}.label{margin:0 0 10px;color:#56828a;font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase}.code{overflow:auto;padding:12px 0;border:1px solid #234861;border-radius:9px;background:#122e46;color:#e1edf5;font:11px/1.85 var(--mono)}.code-line{display:grid;grid-template-columns:39px 1fr;min-width:max-content;padding-right:13px}.ln{padding-right:12px;color:#7496aa;text-align:right;user-select:none}.notes{display:grid;gap:6px;margin:0;padding:0;list-style:none}.notes li{display:grid;grid-template-columns:minmax(110px,.4fr) 1fr;gap:10px;padding-bottom:6px;border-bottom:1px solid #edf1f3;color:#697983;font-size:11px;line-height:1.55}.notes code{color:#176d79;font:10px var(--mono);overflow-wrap:anywhere}.samples{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.sample{padding:12px 14px;border-radius:8px;background:#f1f6f7;color:#687984;font-size:11px;line-height:1.65}.sample b{display:block;margin-bottom:4px;color:#294658}.empty{padding:40px;text-align:center;color:#77858e;border:1px dashed #c9d7de;border-radius:10px;background:#fff}.handoff{position:fixed;z-index:5;right:20px;bottom:20px;width:min(510px,calc(100% - 28px));max-height:70vh;overflow:auto;padding:20px;border:1px solid #d7e2e7;border-radius:13px;background:#fff;box-shadow:0 18px 60px #0d263a38}.handoff h2{margin:6px 0;font-size:20px}.handoff p{color:#687984;font-size:12px;line-height:1.6}.handoff pre{max-height:130px;overflow:auto;padding:11px;border-radius:7px;background:#122e46;color:#e1edf5;font:11px/1.7 var(--mono);white-space:pre-wrap}.handoff-actions{display:flex;justify-content:flex-end;gap:8px}.toast{position:fixed;z-index:8;left:50%;bottom:22px;max-width:calc(100% - 30px);padding:11px 15px;border-radius:8px;background:var(--navy);color:#fff;box-shadow:0 8px 25px #102b4333;font-size:12px;transform:translateX(-50%)}
+    .footer{border-top:1px solid #e0e6e9;background:#fff}.footer-inner{min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:#73818a;font-size:10px}.mono{color:#8d9ba4;font:9px var(--mono);letter-spacing:.09em}
+    .quiz-layout{display:grid;grid-template-columns:minmax(0,1fr) 245px;align-items:start;gap:15px}.quiz-card{padding:23px}.topline{display:flex;justify-content:space-between;gap:10px;color:#7b8992;font:10px var(--mono);letter-spacing:.08em}.progress{height:5px;overflow:hidden;margin:12px 0 23px;border-radius:9px;background:#e8eef1}.fill{height:100%;width:0;border-radius:inherit;background:#36aab7;transition:width .2s}.topic{margin-bottom:7px;color:#348894;font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase}.question{margin:0 0 18px;font-size:21px;line-height:1.42;letter-spacing:-.02em}.options{display:grid;gap:8px}.option{min-height:50px;display:flex;align-items:center;gap:11px;padding:9px 12px;border:1px solid #e0e7eb;border-radius:8px;color:#53646f;background:#fff;cursor:pointer;font-size:12px;line-height:1.5}.option:hover{border-color:#9dcbd0;background:#f8fcfc}.option.selected{border-color:#5cbac2;background:#effafa;color:#204f59}.option input{accent-color:#168b9a}.quiz-controls{display:flex;justify-content:space-between;gap:8px;margin-top:22px;padding-top:15px;border-top:1px solid #edf1f3}.side{padding:18px}.side h3{margin:7px 0 13px;font-size:16px}.qmap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.qmap button{aspect-ratio:1;min-width:0;border:1px solid #dce5e9;border-radius:7px;color:#74838d;background:#fff;cursor:pointer;font:10px var(--mono)}.qmap button.answered{border-color:#b2dfe1;background:#e8f7f7;color:#236975}.qmap button.current{border-color:var(--navy);background:var(--navy);color:white}.side p{margin:13px 0 0;color:#788690;font-size:11px;line-height:1.65}.results{padding:20px}.score-banner{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:15px;padding:20px;border-radius:10px;background:var(--navy);color:white}.score-banner h2{margin:7px 0 4px;font-size:22px}.score-banner p{margin:0;color:#cad7df;font-size:11px}.score{display:flex;align-items:baseline;gap:8px;white-space:nowrap;font-size:25px;font-weight:700}.score small{color:#9ee6e7;font:13px var(--mono)}.review{display:grid;gap:9px}.review-item{padding:14px;border:1px solid #e3e9ec;border-radius:9px}.review-item h3{margin:0 0 7px;font-size:13px;line-height:1.5}.review-item p{margin:7px 0 0;color:#6b7a84;font-size:11px;line-height:1.6}.status{display:inline-block;padding:4px 8px;border-radius:99px;background:#e8f6ef;color:#236b57;font:10px var(--mono)}.status.wrong{background:#fbefee;color:#a04646}.correct{color:#236b57!important}.results>.btn{margin-top:15px}
+    @keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:760px){.shell,.hero-content{width:calc(100% - 30px)}.hero{min-height:330px}.hero:after{right:-205px;opacity:.55}.hero h1{font-size:clamp(35px,8vw,48px)}.section-head{align-items:flex-start;flex-direction:column}.search{width:100%}.columns{grid-template-columns:1fr}.samples{grid-template-columns:1fr}.quiz-layout{grid-template-columns:1fr}.quiz-layout>*{min-width:0}.side{order:-1}.footer-inner{align-items:flex-start;flex-direction:column;justify-content:center;padding:12px 0}}
+    @media(max-width:460px){.topbar-inner{min-height:63px;gap:6px}.brand{gap:7px;font-size:11px}.brandmark{width:32px;height:32px}.brand small{font-size:7px}.nav{gap:0}.nav a{padding:9px 7px;font-size:10px}.hero{min-height:355px}.hero-meta{flex-direction:column;gap:8px}.hero:after{right:-270px}.card-head{padding:16px 13px 7px;gap:7px}.card-title{gap:8px}.card h3{font-size:13px}.card p{font-size:11px}.badge{max-width:75px;overflow:hidden;text-overflow:ellipsis}.actions{padding:7px 12px 14px 54px}.actions .btn{padding-inline:9px;font-size:10px}.disclose{font-size:10px}.detail{padding:15px 12px}.notes li{grid-template-columns:1fr;gap:3px}.quiz-card{padding:17px 13px}.question{font-size:19px}.quiz-controls .btn{padding-inline:9px;font-size:10px}.score-banner{align-items:flex-start;flex-direction:column}.results{padding:11px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#library" aria-label="8085 Microprocessor Lab home"><span class="brandmark" aria-hidden="true">μ</span><span>8085 Microprocessor Lab<small>ENGINEERING PRACTICE MODULE</small></span></a>
+      <nav class="nav" aria-label="Main navigation"><a id="library-link" href="#library" class="active">Library</a><a id="quiz-link" href="#quiz">Knowledge check</a></nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div id="hero-eyebrow" class="eyebrow">8085 · PRACTICE LIBRARY</div>
+      <h1 id="hero-title">Learn the machine.<br>One instruction at a time.</h1>
+      <p id="hero-copy">A practical reference for your first 8085 programs. Study the source, trace each instruction, and take the code to a compatible simulator.</p>
+      <div id="hero-meta" class="hero-meta"><span><strong>06</strong> guided programs</span><span><strong>08</strong> bit processor</span><span><strong>01</strong> careful step at a time</span></div>
+    </div>
+  </section>
+
+  <main class="shell main">
+    <section id="library-view">
+      <div class="section-head"><div><div class="eyebrow dark-eyebrow">REFERENCE DESK</div><h2>Program library</h2></div><input id="search" class="search" type="search" placeholder="Search programs or instructions" aria-label="Search programs"></div>
+      <div id="program-list" class="cards" aria-live="polite"></div>
+      <section id="handoff" class="handoff" role="dialog" aria-labelledby="handoff-title" hidden>
+        <div class="eyebrow dark-eyebrow">SIMULATOR HANDOFF</div><h2 id="handoff-title">Program staged</h2>
+        <p id="handoff-message">The source is saved in this browser. This module has no simulator and has not executed the program.</p>
+        <pre id="handoff-code"></pre>
+        <div class="handoff-actions"><button id="copy-code" class="btn cyan" type="button">Copy code</button><button id="dismiss-handoff" class="btn quiet" type="button">Dismiss</button></div>
+      </section>
+    </section>
+
+    <section id="quiz-view" hidden>
+      <section id="quiz-panel" class="quiz-layout" aria-labelledby="question-title">
+        <div class="quiz-card">
+          <div class="topline"><span id="counter">QUESTION 01 / 10</span><span id="answered-count">0 answered</span></div>
+          <div class="progress" role="progressbar" aria-label="Questions answered" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="progress-fill" class="fill"></div></div>
+          <div id="topic" class="topic"></div><h2 id="question-title" class="question"></h2>
+          <div id="options" class="options" role="radiogroup" aria-labelledby="question-title"></div>
+          <div class="quiz-controls"><button id="previous" class="btn quiet" type="button">← Previous</button><button id="next" class="btn primary" type="button">Next question →</button><button id="submit" class="btn cyan" type="button" hidden>Submit answers</button></div>
+        </div>
+        <aside class="side"><div class="eyebrow dark-eyebrow">YOUR PROGRESS</div><h3>Question map</h3><div id="question-map" class="qmap"></div><p>Choose one answer per question. Move between questions and change a selection any time before submitting.</p></aside>
+      </section>
+      <section id="results" class="results" aria-labelledby="results-title" hidden>
+        <div class="score-banner"><div><div class="eyebrow">KNOWLEDGE CHECK</div><h2 id="results-title">Review complete</h2><p>Your score is calculated from the answers you selected.</p></div><div class="score"><span id="score-value">0 / 10</span><small id="percentage">0%</small></div></div>
+        <div id="review" class="review"></div><button id="try-again" class="btn primary" type="button">↻ Try again</button>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="shell footer-inner"><span>8085 Microprocessor Lab · A student practice companion</span><span class="mono">8085 / 8-BIT DATA PATH / 64 KB ADDRESS SPACE</span></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script>
+    'use strict';
+
+    const programs = [
+      {id:'add-two',title:'Add two 8-bit numbers',category:'Arithmetic',objective:'Add two unsigned bytes and store the low 8 bits of the result.',source:['LDA 2500H','MOV B, A','LDA 2501H','ADD B','STA 2502H','HLT'],notes:[['LDA 2500H','Load the byte at 2500H into accumulator A.'],['MOV B, A','Keep the first operand in register B.'],['LDA 2501H','Load the second operand into A.'],['ADD B','Add B to A. Flags update; CY records carry out.'],['STA 2502H','Store the low byte of the sum at 2502H.'],['HLT','Stop execution.']],sample:'2500H = 25H, 2501H = 17H → 2502H = 3CH.',assumptions:'Inputs are unsigned bytes at 2500H and 2501H; output is at 2502H. A sum above FFH wraps modulo 256 in memory and sets the carry flag.'},
+      {id:'subtract-two',title:'Subtract two 8-bit numbers',category:'Arithmetic',objective:'Subtract the second unsigned byte from the first and store the 8-bit difference.',source:['LDA 2500H','MOV B, A','LDA 2501H','MOV C, A','MOV A, B','SUB C','STA 2502H','HLT'],notes:[['LDA 2500H','Load the minuend (first value) into A.'],['MOV B, A','Preserve the minuend in B.'],['LDA 2501H','Load the subtrahend (second value) into A.'],['MOV C, A','Preserve the subtrahend in C.'],['MOV A, B','Restore the minuend to the accumulator.'],['SUB C','Subtract C from A; CY indicates a borrow for unsigned values.'],['STA 2502H','Store the low 8-bit difference.'],['HLT','Stop execution.']],sample:'2500H = 35H, 2501H = 12H → 2502H = 23H.',assumptions:'Minuend and subtrahend are at 2500H and 2501H; result is at 2502H. If the minuend is smaller, the result wraps modulo 256 and CY indicates borrow.'},
+      {id:'increment',title:'Increment a number',category:'Arithmetic',objective:'Add one to the byte stored at a memory location.',source:['LDA 2500H','INR A','STA 2501H','HLT'],notes:[['LDA 2500H','Read the input byte into A.'],['INR A','Increment A by one; INR does not affect the carry flag.'],['STA 2501H','Write the incremented byte to the output address.'],['HLT','Stop execution.']],sample:'2500H = 7FH → 2501H = 80H.',assumptions:'Input is at 2500H and output at 2501H. FFH increments to 00H; INR does not set CY, even when the value wraps.'},
+      {id:'largest',title:'Find the largest of two numbers',category:'Comparison',objective:'Compare two unsigned bytes and store the greater value.',source:['LDA 2500H','MOV B, A','LDA 2501H','CMP B','JC SECOND','STA 2502H','HLT','SECOND: MOV A, B','STA 2502H','HLT'],notes:[['LDA 2500H','Load the first value into A.'],['MOV B, A','Keep the first value in B.'],['LDA 2501H','Load the second value into A.'],['CMP B','Set flags as if A − B were calculated; A itself is unchanged.'],['JC SECOND','If A is smaller than B unsigned, branch to SECOND.'],['STA 2502H','Otherwise store the second value, which is equal or larger.'],['HLT','Stop after storing the result.'],['SECOND: MOV A, B','On the branch, copy the first (larger) value into A.'],['STA 2502H','Store the selected value at 2502H.'],['HLT','Stop execution.']],sample:'2500H = 42H, 2501H = 5AH → 2502H = 5AH.',assumptions:'Values at 2500H and 2501H are compared as unsigned bytes. The selected value is stored at 2502H; equal values select the second. CMP sets CY when unsigned subtraction needs a borrow.'},
+      {id:'transfer',title:'Transfer data between registers',category:'Data movement',objective:'Copy a byte from register B into register D without changing the source.',source:['LDA 2500H','MOV B, A','MOV D, B','MOV A, D','STA 2501H','HLT'],notes:[['LDA 2500H','Load a sample byte from memory into A.'],['MOV B, A','Copy the byte from A to B.'],['MOV D, B','Transfer the byte from B to D; B remains unchanged.'],['MOV A, D','Copy the destination register back into A for observation.'],['STA 2501H','Store the copied value in memory as a visible check.'],['HLT','Stop execution.']],sample:'2500H = A6H → B = A6H, D = A6H, 2501H = A6H.',assumptions:'The source byte is at 2500H. MOV copies data without changing flags; 2501H is used only to make the transfer observable in memory.'},
+      {id:'array-sum',title:'Sum an array of five bytes',category:'Loops & arrays',objective:'Add five consecutive unsigned bytes and store the low byte of the total.',source:['LXI H, 2500H','MVI C, 05H','XRA A','LOOP: ADD M','INX H','DCR C','JNZ LOOP','STA 2505H','HLT'],notes:[['LXI H, 2500H','Point HL at the first array element.'],['MVI C, 05H','Set C as the loop counter for five elements.'],['XRA A','Clear A; XORing A with itself produces 00H.'],['LOOP: ADD M','Add the byte addressed by HL into the running total.'],['INX H','Advance the pointer to the next byte.'],['DCR C','Decrement the remaining-element count.'],['JNZ LOOP','Repeat until the counter becomes zero.'],['STA 2505H','Store the low byte of the sum after the loop.'],['HLT','Stop execution.']],sample:'2500H–2504H = 01H, 02H, 03H, 04H, 05H → 2505H = 0FH.',assumptions:'Exactly five bytes occupy 2500H through 2504H; output is at 2505H. A holds an 8-bit running total, so sums above FFH wrap modulo 256; carry is not stored.'}
+    ];
+
+    const questions = [
+      {topic:'Architecture',prompt:'Which statement best describes the 8085 data bus?',options:['8-bit, bidirectional','16-bit, unidirectional','8-bit, unidirectional','16-bit, bidirectional'],answer:0,explanation:'The 8085 transfers 8-bit data on a bidirectional data bus. Its 16-bit address bus can address 64 KB.'},
+      {topic:'Registers',prompt:'Which register is the primary operand for most arithmetic and logical operations?',options:['Program counter','Accumulator A','Stack pointer','Instruction register'],answer:1,explanation:'The accumulator (A) is the primary register for arithmetic and logical operations and receives their results.'},
+      {topic:'Arithmetic',prompt:'What does the instruction INR C do?',options:['Adds the contents of C to A','Increments C by one','Increments C and carry','Loads immediate data into C'],answer:1,explanation:'INR increments its specified 8-bit register by one. INR does not affect the carry flag.'},
+      {topic:'Flags',prompt:'After SUB B, what does the carry flag indicate for unsigned values?',options:['The result is zero','A borrow occurred','The result is negative in signed arithmetic only','The accumulator was unchanged'],answer:1,explanation:'In 8085 subtraction, CY is set when a borrow is required (the unsigned accumulator value was smaller than the subtrahend).'},
+      {topic:'Logical instructions',prompt:'Which instruction performs a bitwise exclusive OR of A with itself?',options:['ANA A','ORA A','XRA A','CMP A'],answer:2,explanation:'XRA A computes A XOR A, producing 00H and clearing the accumulator.'},
+      {topic:'Addressing modes',prompt:'In MOV A, M, what addressing mode is used for the source operand?',options:['Immediate','Register indirect through HL','Direct memory','Implied'],answer:1,explanation:'M represents the memory byte whose address is held by the HL register pair; this is register-indirect addressing.'},
+      {topic:'Program counter',prompt:'What is the role of the program counter (PC)?',options:['It holds the address of the next instruction byte','It stores the top stack value','It holds arithmetic results','It selects an I/O device'],answer:0,explanation:'The PC holds the memory address from which the processor fetches the next instruction byte.'},
+      {topic:'Stack pointer',prompt:'What does the stack pointer (SP) identify?',options:['The next free register','The current top of the stack in memory','The address of the next instruction','The address of the accumulator'],answer:1,explanation:'SP is a 16-bit register that points to the top of the stack in memory. The 8085 stack grows toward lower addresses.'},
+      {topic:'Memory',prompt:'How many unique byte-addressable memory locations can the 8085 address?',options:['256','4,096','32,768','65,536'],answer:3,explanation:'A 16-bit address selects 2^16 = 65,536 locations, or 64 KB, with each location holding one byte.'},
+      {topic:'Instruction execution',prompt:'What is the usual instruction execution sequence in the 8085?',options:['Execute, decode, fetch','Fetch, decode, execute','Decode, execute, store PC','Read stack, fetch, halt'],answer:1,explanation:'The processor fetches instruction bytes using PC, decodes the operation, and executes it; PC advances as bytes are fetched.'}
+    ];
+
+    const $ = (selector) => document.querySelector(selector);
+    const libraryView = $('#library-view'), quizView = $('#quiz-view');
+    const toastNode = $('#toast');
+    let toastTimer, stagedProgram = null;
+    function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    function notify(message){toastNode.textContent=message;toastNode.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastNode.hidden=true,3000);}
+    function showView(){
+      const quiz=location.hash==='#quiz';
+      libraryView.hidden=quiz;quizView.hidden=!quiz;
+      $('#library-link').classList.toggle('active',!quiz);$('#quiz-link').classList.toggle('active',quiz);
+      $('#hero-eyebrow').textContent=quiz?'KNOWLEDGE CHECK · 10 QUESTIONS':'8085 · PRACTICE LIBRARY';
+      $('#hero-title').innerHTML=quiz?'Check your mental model.':'Learn the machine.<br>One instruction at a time.';
+      $('#hero-copy').textContent=quiz?'Ten focused questions on 8085 architecture and instructions. Answer at your own pace, then review every explanation.':'A practical reference for your first 8085 programs. Study the source, trace each instruction, and take the code to a compatible simulator.';
+      $('#hero-meta').innerHTML=quiz?'<span><strong>10</strong> questions</span><span><strong>04</strong> choices each</span><span><strong>100%</strong> your answers</span>':'<span><strong>06</strong> guided programs</span><span><strong>08</strong> bit processor</span><span><strong>01</strong> careful step at a time</span>';
+      document.title=quiz?'Knowledge Check · 8085 Microprocessor Lab':'Program Library · 8085 Microprocessor Lab';
+    }
+    function renderPrograms(term=''){
+      const q=term.trim().toLowerCase();
+      const list=programs.filter(p=>[p.title,p.category,p.objective,p.source.join(' ')].some(s=>s.toLowerCase().includes(q)));
+      $('#program-list').innerHTML=list.length?list.map((p,i)=>`<article class="card" style="animation-delay:${Math.min(i*35,210)}ms">
+        <div class="card-head"><div class="card-title"><span class="index">${String(programs.indexOf(p)+1).padStart(2,'0')}</span><div><h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.objective)}</p></div></div><span class="badge">${escapeHtml(p.category)}</span></div>
+        <div class="actions"><button class="btn primary" type="button" data-stage="${p.id}">Load in Simulator</button><button class="disclose" type="button" data-explain="${p.id}" aria-expanded="false">Show Explanation⌄</button></div>
+        <div class="detail" data-detail="${p.id}" hidden><div class="columns"><section><h4 class="label">8085 source</h4><div class="code" aria-label="${escapeHtml(p.title)} source">${p.source.map((line,n)=>`<div class="code-line"><span class="ln">${String(n+1).padStart(2,'0')}</span><span>${escapeHtml(line)}</span></div>`).join('')}</div></section><section><h4 class="label">Instruction notes</h4><ul class="notes">${p.notes.map(([inst,desc])=>`<li><code>${escapeHtml(inst)}</code><span>${escapeHtml(desc)}</span></li>`).join('')}</ul></section></div><div class="samples"><div class="sample"><b>Example trace</b>${escapeHtml(p.sample)}</div><div class="sample"><b>Addresses &amp; behavior</b>${escapeHtml(p.assumptions)}</div></div></div>
+      </article>`).join(''):'<div class="empty"><strong>No matching programs</strong><br>Try another title, category, or instruction mnemonic.</div>';
+    }
+    $('#search').addEventListener('input',e=>renderPrograms(e.target.value));
+    $('#program-list').addEventListener('click',e=>{
+      const stage=e.target.closest('[data-stage]');
+      if(stage){
+        stagedProgram=programs.find(p=>p.id===stage.dataset.stage);
+        const payload={id:stagedProgram.id,title:stagedProgram.title,source:stagedProgram.source.join('\n'),stagedAt:new Date().toISOString()};
+        try{localStorage.setItem('8085-lab:staged-program',JSON.stringify(payload));$('#handoff-message').textContent='The source is saved in this browser for a simulator handoff. This standalone file has no simulator and has not executed the program.';}
+        catch{$('#handoff-message').textContent='Browser storage is unavailable. You can still copy the source below. No execution was performed.';}
+        $('#handoff-title').textContent=stagedProgram.title+' is staged';$('#handoff-code').textContent=payload.source;$('#handoff').hidden=false;return;
+      }
+      const toggle=e.target.closest('[data-explain]');
+      if(toggle){const detail=$(`[data-detail="${toggle.dataset.explain}"]`),expanded=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!expanded));toggle.textContent=expanded?'Show Explanation⌄':'Hide Explanation⌃';detail.hidden=expanded;}
+    });
+    $('#dismiss-handoff').addEventListener('click',()=>{$('#handoff').hidden=true;stagedProgram=null;});
+    $('#copy-code').addEventListener('click',async()=>{
+      if(!stagedProgram)return;const text=stagedProgram.source.join('\n');
+      try{await navigator.clipboard.writeText(text);notify('Assembly source copied to clipboard.');}
+      catch{const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.append(area);area.select();const ok=document.execCommand('copy');area.remove();notify(ok?'Assembly source copied to clipboard.':'Clipboard access was unavailable; select and copy the code listing.');}
+    });
+
+    const answers=Array(questions.length).fill(null);let current=0;
+    function score(){const n=questions.reduce((sum,q,i)=>sum+(answers[i]===q.answer?1:0),0);return{n,percent:Math.round(n/questions.length*100)};}
+    function renderQuestion(){
+      const q=questions[current],done=answers.filter(a=>a!==null).length;
+      $('#counter').textContent=`QUESTION ${String(current+1).padStart(2,'0')} / ${questions.length}`;
+      $('#answered-count').textContent=`${done} answered`;$('.progress').setAttribute('aria-valuenow',String(done));$('#progress-fill').style.width=`${done/questions.length*100}%`;
+      $('#topic').textContent=q.topic;$('#question-title').textContent=q.prompt;
+      $('#options').innerHTML=q.options.map((option,i)=>`<label class="option${answers[current]===i?' selected':''}"><input type="radio" name="answer" value="${i}" ${answers[current]===i?'checked':''}><span>${String.fromCharCode(65+i)}. ${escapeHtml(option)}</span></label>`).join('');
+      $('#question-map').innerHTML=questions.map((_,i)=>`<button type="button" data-jump="${i}" class="${i===current?'current ':''}${answers[i]!==null?'answered':''}" aria-label="Go to question ${i+1}${answers[i]===null?', unanswered':', answered'}" aria-current="${i===current?'step':'false'}">${String(i+1).padStart(2,'0')}</button>`).join('');
+      $('#previous').disabled=current===0;$('#next').hidden=current===questions.length-1;$('#submit').hidden=current!==questions.length-1;
+    }
+    $('#options').addEventListener('change',e=>{if(e.target.matches('input[name="answer"]')){answers[current]=Number(e.target.value);renderQuestion();}});
+    $('#question-map').addEventListener('click',e=>{const b=e.target.closest('[data-jump]');if(b){current=Number(b.dataset.jump);renderQuestion();}});
+    $('#previous').addEventListener('click',()=>{current=Math.max(0,current-1);renderQuestion();});
+    $('#next').addEventListener('click',()=>{current=Math.min(questions.length-1,current+1);renderQuestion();});
+    $('#submit').addEventListener('click',()=>{
+      const result=score();$('#score-value').textContent=`${result.n} / ${questions.length}`;$('#percentage').textContent=`${result.percent}%`;
+      $('#review').innerHTML=questions.map((q,i)=>{const chosen=answers[i],correct=chosen===q.answer;return `<article class="review-item"><h3>${String(i+1).padStart(2,'0')}. ${escapeHtml(q.prompt)}</h3><span class="status${correct?'':' wrong'}">${chosen===null?'Not answered':correct?'Your answer · Correct':'Your answer · Incorrect'}</span><p><b>Your answer:</b> ${chosen===null?'Not answered':String.fromCharCode(65+chosen)+'. '+escapeHtml(q.options[chosen])}</p><p class="correct"><b>Correct answer:</b> ${String.fromCharCode(65+q.answer)}. ${escapeHtml(q.options[q.answer])}</p><p>${escapeHtml(q.explanation)}</p></article>`;}).join('');
+      $('#quiz-panel').hidden=true;$('#results').hidden=false;$('#results').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    $('#try-again').addEventListener('click',()=>{answers.fill(null);current=0;$('#results').hidden=true;$('#quiz-panel').hidden=false;renderQuestion();});
+    window.addEventListener('hashchange',showView);
+    renderPrograms();renderQuestion();showView();
+  </script>
+</body>
+</html>
